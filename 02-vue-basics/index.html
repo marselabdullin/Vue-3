@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vue Basics</title>
+    <link rel="stylesheet" href="theme.css"/>
+</head>
+<body>
+
+<div id="app" class="container">
+    <div class="card">
+        <h1 :style="{color: notes.length ? 'darkgreen' : 'darkred'}">{{title}}</h1>
+
+        <div class="form-control">
+            <input type="text"
+                   v-model="inputValue"
+                   :placeholder="placeholder"
+                   @keypress.enter="addNewNote"
+            />
+        </div>
+
+        <button @click="addNewNote" class="btn">Добавить</button>
+
+        <hr/>
+
+        <ul v-if="notes.length" class="list">
+            <li v-for="(note, index) in notes" class="list-item">
+                <!--          <span :class="note.length > 5 ? 'primary' : 'bold'">{{toUpperCase(note)}}</span>-->
+                <!--          <span :class="{-->
+                <!--            primary: true,-->
+                <!--            bold: note.length > 5-->
+                <!--          }">{{toUpperCase(note)}}</span>-->
+                <span :class="['primary', {bold: note.length > 5}]">{{toUpperCase(note)}}</span>
+                <button class="btn danger" @click="removeNote(index)">X</button>
+            </li>
+
+            <hr/>
+
+            <li><strong>Общее количество: {{notes.length}}</strong> | Удвоенное: {{doubleCountComputed}}</li>
+        </ul>
+
+        <div v-else>Заметок нет</div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/vue@next"></script>
+<script src="app.js"></script>
+</body>
+</html>
